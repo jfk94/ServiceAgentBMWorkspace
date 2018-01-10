@@ -12,7 +12,6 @@ SA_FOLDER = "SA"
 CDT_PROJECT = "ServiceAgent_CDTProject"
 BINARY_NAME = "ServiceAgent_CDTProject"
 
-INSTALL_FOLDER = "ServiceAgentBM"
 CLONE_FOLDER = "serviceagent-bm"
 CLONE_FOLDER_SA = "serviceagent"
 
@@ -49,9 +48,9 @@ def CompileHost():
 
 	printheader("##########################################################")
 	printheader("### Looking for CDT Project ")
-	printheader("### " + os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,SA_FOLDER, CDT_PROJECT))
+	printheader("### " + os.path.join(CWD, CLONE_FOLDER, CLONE_FOLDER_SA,SA_FOLDER, CDT_PROJECT))
 	printheader("##########################################################")
-	checkPath(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,
+	checkPath(os.path.join(CWD, CLONE_FOLDER, CLONE_FOLDER_SA,
 		SA_FOLDER, CDT_PROJECT), True)
 
 	printheader("##########################################################")
@@ -61,7 +60,7 @@ def CompileHost():
 		'--launcher.suppressErrors', '-nosplash', '-application',
 		'org.eclipse.cdt.managedbuilder.core.headlessbuild',
 		'-import',
-		os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,
+		os.path.join(CWD, CLONE_FOLDER, CLONE_FOLDER_SA,
 			SA_FOLDER, CDT_PROJECT),
 		'-cleanBuild',
 		CDT_PROJECT + '/' + CONFIGURATION]);
@@ -73,10 +72,10 @@ def CompileTarget():
 
 	printheader("##########################################################")
 	printheader("### Looking for Build Script ")
-	printheader("### " + os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, BUILD_SCRIPT))
+	printheader("### " + os.path.join(CWD, CLONE_FOLDER, BUILD_FOLDER, BUILD_SCRIPT))
 	printheader("##########################################################")
-	checkPath(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, BUILD_SCRIPT), True)
-	os.chdir(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER))
+	checkPath(os.path.join(CWD, CLONE_FOLDER, BUILD_FOLDER, BUILD_SCRIPT), True)
+	os.chdir(os.path.join(CWD, CLONE_FOLDER, BUILD_FOLDER))
 
 	if CONFIGURATION == 'Debug':
 		subprocess.call(['./'+ BUILD_SCRIPT, 'sad', '-d', BUILD_TARGET]);

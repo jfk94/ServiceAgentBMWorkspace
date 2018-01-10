@@ -6,7 +6,6 @@ import commands
 import subprocess
 from pylib.print_color import *
 
-INSTALL_FOLDER = "ServiceAgentBM"
 CLONE_FOLDER = "serviceagent-bm"
 CLONE_FOLDER_SA = "serviceagent"
 BUILD_FOLDER = "build"
@@ -45,17 +44,15 @@ PLATFORM = sys.argv[2]
 printheader("##########################################################")
 printheader("### ServiceAgentBM Folder ")
 printheader("##########################################################")
-checkPath(os.path.join(CWD, INSTALL_FOLDER), False)
-os.makedirs(os.path.join(CWD, INSTALL_FOLDER))
+checkPath(os.path.join(CWD, CLONE_FOLDER), False)
 
 printheader("##########################################################")
 printheader("### Initializing Repository")
 printheader("##########################################################")
-os.chdir(os.path.join(CWD, INSTALL_FOLDER))
 os.popen("repo init -u git@github.com:OBIGOGIT/ServiceAgentBM-Build.git -b develop")
 os.popen("repo sync | repo forall -c git checkout develop")
-checkPath(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA), True)
-os.chdir(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA))
+checkPath(os.path.join(CWD, CLONE_FOLDER, CLONE_FOLDER_SA), True)
+os.chdir(os.path.join(CWD, CLONE_FOLDER, CLONE_FOLDER_SA))
 subprocess.call(['git', 'checkout', BRANCH]);
 if commands.getoutput('git status').find('Not currently on any branch') >= 0:
 	printfail("Unknow branch : " + BRANCH)
@@ -64,14 +61,14 @@ if commands.getoutput('git status').find('Not currently on any branch') >= 0:
 printheader("##########################################################")
 printheader("### Compiling")
 printheader("##########################################################")
-os.chdir(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER))
+os.chdir(os.path.join(CWD, CLONE_FOLDER, BUILD_FOLDER))
 
 if PLATFORM == 'host':
 	subprocess.call(['./' + BUILD_SCRIPT, 'all', HOST_OPTION]);
-	checkPath(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'x86_64'), True)
+	checkPath(os.path.join(CWD, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'x86_64'), True)
 elif PLATFORM == 'target':
 	subprocess.call(['./' + BUILD_SCRIPT, 'all', TARGET_OPTION]);
-	checkPath(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv7-a'), True)
+	checkPath(os.path.join(CWD, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv7-a'), True)
 else:
 	printfail("Unknow Platform : " + PLATFORM)
 	sys.exit()
