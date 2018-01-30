@@ -7,6 +7,8 @@ from pylib.print_color import *
 
 UICCID_PATH = '/etc/sa/'
 UICCID_FILE = 'uiccid.txt'
+NAVI_RUN_SCRIPT = 'run_navi.sh'
+NAVI_PATH = '/home/telecons/work/SYMC_C300'
 
 def checkPath(path, exist):
 	if exist == True:
@@ -33,3 +35,10 @@ if (os.path.exists(UICCID_PATH)):
 	subprocess.call(['sudo', 'rm', '-rf', UICCID_PATH]);
 subprocess.call(['sudo', 'mkdir', UICCID_PATH]);
 subprocess.call(['sudo', 'cp', os.path.join(CWD, UICCID_FILE), os.path.join(UICCID_PATH, UICCID_FILE)]);
+
+printheader("##########################################################")
+printheader("### Copying %s to %s" % (os.path.join(CWD, NAVI_RUN_SCRIPT), os.path.join(NAVI_PATH, NAVI_RUN_SCRIPT)))
+printheader("##########################################################")
+checkPath(os.path.join(CWD, NAVI_RUN_SCRIPT), True)
+checkPath(NAVI_PATH, True)
+subprocess.call(['sudo', 'cp', os.path.join(CWD, NAVI_RUN_SCRIPT), os.path.join(NAVI_PATH, NAVI_RUN_SCRIPT)]);
