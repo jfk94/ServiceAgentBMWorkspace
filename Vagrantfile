@@ -78,5 +78,5 @@ Vagrant.configure("2") do |config|
 	sudo apt-get install -y g++
 	sudo apt-get install -y make
   SHELL
-  config.vm.provision :shell, :inline => "python /home/vagrant/work/ServiceAgentBMWorkspace/Setup.py", run: 'always'
+  config.vm.provision :shell, :inline => "python /home/vagrant/work/ServiceAgentBMWorkspace/Setup.py", run: 'always', privileged: false
 end

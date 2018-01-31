@@ -13,6 +13,12 @@ NAVI_PATH = '/home/telecons/work/SYMC_C300'
 AF_TARGET_PATH = '/home/vagrant/Release/Obigo/OAF'
 AF_SOURCE_PATH = '/home/vagrant/work/Release/Obigo/OAF'
 AF_W20 = 'w20'
+SA_TARGET_PATH = '/home/vagrant/Release/Obigo/SA'
+SA_SOURCE_PATH = '/home/vagrant/work/Release/Obigo/SA'
+SA_SERVICE = 'bin/sa-service'
+RUN_SCRIPT_C300_TARGET_PATH = '/home/vagrant/Release/Obigo'
+RUN_SCRIPT_C300_SOURCE_PATH = '/home/vagrant/work/Release/Obigo'
+RUN_SCRIPT_C300 = 'run_c300_bm.sh'
 
 def checkPath(path, exist):
 	if exist == True:
@@ -60,5 +66,37 @@ else:
 	if SOURCE_TIME != TARGET_TIME:
 		printheader("Remove Target : " + AF_TARGET_PATH)
 		shutil.rmtree(AF_TARGET_PATH)
-		printheader("### Copying AF from %s to %s" % (AF_SOURCE_PATH, AF_TARGET_PATH))
+		printheader("Copying AF from %s to %s" % (AF_SOURCE_PATH, AF_TARGET_PATH))
 		copytree(AF_SOURCE_PATH, AF_TARGET_PATH)
+
+printheader("##########################################################")
+printheader("### Copying SA from %s to %s" % (SA_SOURCE_PATH, SA_TARGET_PATH))
+printheader("##########################################################")
+checkPath(SA_SOURCE_PATH, True)
+if os.path.exists(SA_TARGET_PATH) == False:
+	copytree(SA_SOURCE_PATH, SA_TARGET_PATH)
+else:
+	SOURCE_TIME = os.path.getmtime(os.path.join(SA_SOURCE_PATH, SA_SERVICE))
+	TARGET_TIME = os.path.getmtime(os.path.join(SA_TARGET_PATH, SA_SERVICE))
+	printheader("Source Time : %s , Target Time : %s" % (SOURCE_TIME, TARGET_TIME))
+	if SOURCE_TIME != TARGET_TIME:
+		printheader("Remove Target : " + SA_TARGET_PATH)
+		shutil.rmtree(SA_TARGET_PATH)
+		printheader("Copying SA from %s to %s" % (SA_SOURCE_PATH, SA_TARGET_PATH))
+		copytree(SA_SOURCE_PATH, SA_TARGET_PATH)
+
+printheader("##########################################################")
+printheader("### Copying %s from %s to %s" % (RUN_SCRIPT_C300, SA_SOURCE_PATH, SA_TARGET_PATH))
+printheader("##########################################################")
+checkPath(os.path.join(RUN_SCRIPT_C300_SOURCE_PATH, RUN_SCRIPT_C300), True)
+if os.path.exists(os.path.join(RUN_SCRIPT_C300_TARGET_PATH, RUN_SCRIPT_C300)) == False:
+	shutil.copyfile(os.path.join(RUN_SCRIPT_C300_SOURCE_PATH, RUN_SCRIPT_C300), os.path.join(RUN_SCRIPT_C300_TARGET_PATH, RUN_SCRIPT_C300))
+else:
+	SOURCE_TIME = os.path.getmtime(os.path.join(RUN_SCRIPT_C300_SOURCE_PATH, RUN_SCRIPT_C300))
+	TARGET_TIME = os.path.getmtime(os.path.join(RUN_SCRIPT_C300_TARGET_PATH, RUN_SCRIPT_C300))
+	printheader("Source Time : %s , Target Time : %s" % (SOURCE_TIME, TARGET_TIME))
+	if SOURCE_TIME != TARGET_TIME:
+		printheader("Remove Target : " + os.path.join(RUN_SCRIPT_C300_TARGET_PATH, RUN_SCRIPT_C300))
+		os.remove(os.path.join(RUN_SCRIPT_C300_TARGET_PATH, RUN_SCRIPT_C300))
+		printheader("Copying %s from %s to %s" % (RUN_SCRIPT_C300, SA_SOURCE_PATH, SA_TARGET_PATH))
+		shutil.copyfile(os.path.join(RUN_SCRIPT_C300_SOURCE_PATH, RUN_SCRIPT_C300), os.path.join(RUN_SCRIPT_C300_TARGET_PATH, RUN_SCRIPT_C300))
