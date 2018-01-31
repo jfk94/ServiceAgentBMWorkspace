@@ -5,6 +5,7 @@ import sys
 import subprocess
 from pylib.print_color import *
 
+INSTALL_FOLDER = "ServiceAgentBM"
 CLONE_FOLDER = "serviceagent-bm"
 CLONE_FOLDER_SA = "serviceagent"
 
@@ -30,11 +31,11 @@ def checkPath(path, exist):
 		else:
 			return
 
-targetfile = os.path.join(CWD,  CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'x86_64', KILL_SCRIPT)
+targetfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'x86_64', KILL_SCRIPT)
 printheader("##########################################################")
 printheader("### Looking for the script ")
 printheader("### " + targetfile)
 printheader("##########################################################")
 checkPath(targetfile, True)
-os.chdir(os.path.join(CWD,  CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'x86_64'))
+os.chdir(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'x86_64'))
 subprocess.call(['./' + KILL_SCRIPT]);

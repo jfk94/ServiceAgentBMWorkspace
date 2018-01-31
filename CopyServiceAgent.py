@@ -11,6 +11,7 @@ SA_FOLDER = "SA"
 CDT_PROJECT = "ServiceAgent_CDTProject"
 BINARY_NAME = "ServiceAgent_CDTProject"
 
+INSTALL_FOLDER = "ServiceAgentBM"
 CLONE_FOLDER = "serviceagent-bm"
 CLONE_FOLDER_SA = "serviceagent"
 
@@ -46,7 +47,7 @@ CONFIGURATION = sys.argv[1]
 PLATFORM = sys.argv[2]
 
 def CopyHost():
-	binaryfile = os.path.join(CWD,  CLONE_FOLDER, CLONE_FOLDER_SA,
+	binaryfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,
 		SA_FOLDER, CDT_PROJECT, CONFIGURATION, BINARY_NAME)
 	printheader("##########################################################")
 	printheader("### Looking for the binary file : ")
@@ -54,7 +55,7 @@ def CopyHost():
 	printheader("##########################################################")
 	checkPath(binaryfile, True)
 
-	targetfile = os.path.join(CWD,  CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'x86_64', 'bin/sa-service')
+	targetfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'x86_64', 'bin/sa-service')
 	printheader("##########################################################")
 	printheader("### Copying the binary file to ")
 	printheader("### " + targetfile)

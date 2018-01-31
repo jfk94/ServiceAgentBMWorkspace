@@ -7,6 +7,7 @@ import shutil
 import pexpect
 from pylib.print_color import *
 
+INSTALL_FOLDER = "ServiceAgentBM"
 CLONE_FOLDER = "serviceagent-bm"
 CLONE_FOLDER_SA = "serviceagent"
 
@@ -18,6 +19,9 @@ SSH_NEWKEY = r'Are you sure you want to continue connecting \(yes/no\)\?'
 TARGET_ADDRESS = ''
 TARGET_FOLDER = ''
 TARGET_PASSWORD = 'root'
+
+RUN_SCRIPT = 'run_sad.sh'
+SA_SERVICE = 'obigo-sa'
 
 CWD = os.path.dirname(os.path.realpath(__file__))
 os.chdir(CWD)
@@ -53,15 +57,15 @@ def setpassword():
 		child.sendline(TARGET_PASSWORD)
 	child.expect(pexpect.EOF)
 
-	if len(sys.argv) < 3:
-		message = __file__ + " <Target Address> <Target Folder>"
-		printfail(message)
-		sys.exit()
+if len(sys.argv) < 3:
+	message = __file__ + " <Target Address> <Target Folder>"
+	printfail(message)
+	sys.exit()
 
 TARGET_ADDRESS = sys.argv[1]
 TARGET_FOLDER = sys.argv[2]
 
-targetfile = os.path.join(CWD,  CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv7-a', 'bin/sa-service')
+targetfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv7-a', 'bin/sa-service')
 printheader("##########################################################")
 printheader("### Looking for the target file : ")
 printheader("### " + targetfile)
@@ -69,11 +73,18 @@ printheader("##########################################################")
 checkPath(targetfile, True)
 
 printheader("##########################################################")
+printheader("### Stopping SA Service : " + SA_SERVICE)
+printheader("##########################################################")
+child = pexpect.spawn('ssh root@%s systemctl -a | grep obigo; systemctl stop %s'%(TARGET_ADDRESS, SA_SERVICE))
+setpassword()
+child = pexpect.spawn('ssh root@%s systemctl -a | grep obigo'%(TARGET_ADDRESS))
+setpassword()
+
+printheader("##########################################################")
 printheader("### Deleting Target Folder")
 printheader("### " + TARGET_ADDRESS + ':' + TARGET_FOLDER)
 printheader("##########################################################")
-child = pexpect.spawn('ssh root@%s rm -rf %s'
-	%(TARGET_ADDRESS, TARGET_FOLDER))
+child = pexpect.spawn('ssh root@%s rm -rf %s'%(TARGET_ADDRESS, TARGET_FOLDER))
 setpassword()
 
 printheader("##########################################################")
@@ -81,7 +92,14 @@ printheader("### Installing binary files to Target")
 printheader("### " + TARGET_ADDRESS + ':' + TARGET_FOLDER)
 printheader("##########################################################")
 child = pexpect.spawn('scp -r %s root@%s:%s'
-	%(os.path.join(CWD,  CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv7-a'),
+	%(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv7-a'),
 	TARGET_ADDRESS,
 	TARGET_FOLDER))
+setpassword()
+
+printheader("##########################################################")
+printheader("### Installing Run Script to Target")
+printheader("### " + TARGET_ADDRESS + ':' + TARGET_FOLDER)
+printheader("##########################################################")
+child = pexpect.spawn('scp %s root@%s:%s'%(RUN_SCRIPT, TARGET_ADDRESS, TARGET_FOLDER))
 setpassword()
