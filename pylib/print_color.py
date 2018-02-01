@@ -19,3 +19,6 @@ def printfail(msg):
 
 def printheader(msg):
 	print bcolors.HEADER + msg + bcolors.ENDC
+
+def printwarning(msg):
+	print bcolors.WARNING + msg + bcolors.ENDC

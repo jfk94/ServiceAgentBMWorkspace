@@ -62,7 +62,7 @@ if os.path.exists(AF_TARGET_PATH) == False:
 else:
 	SOURCE_TIME = os.path.getmtime(os.path.join(AF_SOURCE_PATH, AF_W20))
 	TARGET_TIME = os.path.getmtime(os.path.join(AF_TARGET_PATH, AF_W20))
-	printheader("Source Time : %s , Target Time : %s" % (SOURCE_TIME, TARGET_TIME))
+	printwarning("Source Time : %s , Target Time : %s" % (SOURCE_TIME, TARGET_TIME))
 	if SOURCE_TIME != TARGET_TIME:
 		printheader("Remove Target : " + AF_TARGET_PATH)
 		shutil.rmtree(AF_TARGET_PATH)
@@ -78,7 +78,7 @@ if os.path.exists(SA_TARGET_PATH) == False:
 else:
 	SOURCE_TIME = os.path.getmtime(os.path.join(SA_SOURCE_PATH, SA_SERVICE))
 	TARGET_TIME = os.path.getmtime(os.path.join(SA_TARGET_PATH, SA_SERVICE))
-	printheader("Source Time : %s , Target Time : %s" % (SOURCE_TIME, TARGET_TIME))
+	printwarning("Source Time : %s , Target Time : %s" % (SOURCE_TIME, TARGET_TIME))
 	if SOURCE_TIME != TARGET_TIME:
 		printheader("Remove Target : " + SA_TARGET_PATH)
 		shutil.rmtree(SA_TARGET_PATH)
@@ -94,7 +94,7 @@ if os.path.exists(os.path.join(RUN_SCRIPT_C300_TARGET_PATH, RUN_SCRIPT_C300)) ==
 else:
 	SOURCE_TIME = os.path.getmtime(os.path.join(RUN_SCRIPT_C300_SOURCE_PATH, RUN_SCRIPT_C300))
 	TARGET_TIME = os.path.getmtime(os.path.join(RUN_SCRIPT_C300_TARGET_PATH, RUN_SCRIPT_C300))
-	printheader("Source Time : %s , Target Time : %s" % (SOURCE_TIME, TARGET_TIME))
+	printwarning("Source Time : %s , Target Time : %s" % (SOURCE_TIME, TARGET_TIME))
 	if SOURCE_TIME != TARGET_TIME:
 		printheader("Remove Target : " + os.path.join(RUN_SCRIPT_C300_TARGET_PATH, RUN_SCRIPT_C300))
 		os.remove(os.path.join(RUN_SCRIPT_C300_TARGET_PATH, RUN_SCRIPT_C300))
