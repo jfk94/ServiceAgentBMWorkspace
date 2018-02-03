@@ -1,15 +1,46 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+module OS
+    def OS.windows?
+        (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+    end
+
+    def OS.mac?
+        (/darwin/ =~ RUBY_PLATFORM) != nil
+    end
+
+    def OS.unix?
+        !OS.windows?
+    end
+
+    def OS.linux?
+        OS.unix? and not OS.mac?
+    end
+end
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
-	$workspace_host_dir = "/Users/jangsegwon/Project/ServiceAgent"
-	$workspace_guest_dir = "/home/vagrant/work"
-	$navi_host_dir = "/Users/jangsegwon/Project/ServiceAgent/Release/Navi/home/telecons"
-	$navi_guest_dir = "/home/telecons"
+  if OS.windows?
+    $workspace_host_dir = "D:/Project/ServiceAgent"
+    $workspace_guest_dir = "/home/vagrant/work"
+    $navi_host_dir = "D:/Project/ServiceAgent/Release/Navi/home/telecons"
+    $navi_guest_dir = "/home/telecons"
+  elsif OS.mac?
+    $workspace_host_dir = "/Users/jangsegwon/Project/ServiceAgent"
+    $workspace_guest_dir = "/home/vagrant/work"
+    $navi_host_dir = "/Users/jangsegwon/Project/ServiceAgent/Release/Navi/home/telecons"
+    $navi_guest_dir = "/home/telecons"
+  elsif OS.unix?
+    puts "Vagrant launched from unix."
+  elsif OS.linux?
+    puts "Vagrant launched from linux."
+  else
+    puts "Vagrant launched from unknown platform."
+end
 
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
@@ -61,6 +92,8 @@ Vagrant.configure("2") do |config|
 	vb.gui = true
     vb.name = "Vagrant_ServiceAgentBM"
 	vb.customize ["modifyvm", :id, "--accelerate3d", "off"]
+  vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/home_vagrant_work", "1"]
+  vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/home_telecons", "1"]
   end
   #
   #   # Customize the amount of memory on the VM:
