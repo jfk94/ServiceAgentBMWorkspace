@@ -22,6 +22,7 @@ BUILD_TARGET = "-bt"
 
 CONFIGURATION = ''
 PLATFORM = ''
+CLEANBUILD = '-build'
 
 CWD = os.path.dirname(os.path.realpath(__file__))
 os.chdir(CWD)
@@ -63,7 +64,7 @@ def CompileHost():
 		'-import',
 		os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,
 			SA_FOLDER, CDT_PROJECT),
-		'-cleanBuild',
+		CLEANBUILD,
 		CDT_PROJECT + '/' + CONFIGURATION]);
 
 def CompileTarget():
@@ -84,9 +85,16 @@ def CompileTarget():
 		subprocess.call(['./'+ BUILD_SCRIPT, 'sad', '-r', BUILD_TARGET]);
 
 if len(sys.argv) < 3:
-	message = __file__ + " <Debug or Release> <host or target>"
+	message = __file__ + " <Debug or Release> <host or target> [clean]"
 	printfail(message)
 	sys.exit()
+if len(sys.argv) > 3:
+	if sys.argv[3] == 'clean':
+		CLEANBUILD = '-cleanBuild'
+	else:
+		message = __file__ + " <Debug or Release> <host or target> [clean]"
+		printfail(message)
+		sys.exit()
 
 CONFIGURATION = sys.argv[1]
 PLATFORM = sys.argv[2]
