@@ -20,6 +20,7 @@ TARGET_ADDRESS = ''
 TARGET_FOLDER = ''
 TARGET_PASSWORD = 'root'
 
+SED_SCRIPT = 'replace_workingfolder.sh'
 RUN_SCRIPT = 'run_sad.sh'
 SA_SERVICE = 'obigo-sa'
 
@@ -98,14 +99,22 @@ child = pexpect.spawn('scp -r %s root@%s:%s'
 	TARGET_ADDRESS,
 	TARGET_FOLDER))
 setpassword()
-'''
+
 printheader("##########################################################")
-printheader("### Changing %s of working folder path" % (RUN_SCRIPT))
+printheader("### Changing working folder path of run_sad.h")
 printheader("##########################################################")
-child = pexpect.spawn("ssh root@%s sed -i -e '\s/\/area1\/obigo\/SA/$(pwd)/g' %s"
-	%(TARGET_ADDRESS, os.path.join(TARGET_FOLDER, RUN_SCRIPT)))
+checkPath(os.path.join(CWD, SED_SCRIPT), True)
+child = pexpect.spawn('scp -r %s root@%s:%s'
+	%(os.path.join(CWD, SED_SCRIPT),
+	TARGET_ADDRESS,
+	TARGET_FOLDER))
 setpassword()
-'''
+child = pexpect.spawn("ssh root@%s %s %s"
+	%(TARGET_ADDRESS,
+	os.path.join(TARGET_FOLDER, SED_SCRIPT),
+	os.path.join(TARGET_FOLDER, RUN_SCRIPT)))
+setpassword()
+
 printheader("##########################################################")
 printheader("### Copying %s to %s" % (os.path.join(CWD, UICCID_FILE), os.path.join(TARGET_FOLDER, UICCID_FILE)))
 printheader("##########################################################")
