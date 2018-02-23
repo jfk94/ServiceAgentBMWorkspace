@@ -1,7 +1,22 @@
 #!/bin/sh
 
-REPORT_FILE="CPU_Usage_$1"
-rm -rf $REPORT_FILE
+me=`basename "$0"`
+_now=$(date +"%m_%d_%Y")
+
+if test "$#" -eq 0; then
+    echo "USAGE: ./${me} process [process]"
+    exit 1
+fi
+
+REPORT_FILE="CPU_Usage_$_now"
 
 echo "  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND" >> $REPORT_FILE
-while :; do top -p $(pgrep -d',' $1) -n 1 | sed "/$1/!d"  >> $REPORT_FILE; sleep 1; done
+
+while :
+do
+    for i in "$@"
+    do
+        top -p $(pgrep -d',' $i) -n 1 | sed "/$i/!d"  >> $REPORT_FILE
+    done
+    sleep 1;
+done
