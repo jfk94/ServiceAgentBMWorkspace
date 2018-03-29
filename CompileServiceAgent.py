@@ -21,7 +21,7 @@ BUILD_SCRIPT = "sa_build.sh"
 BUILD_TARGET = "-bt"
 
 CONFIGURATION = ''
-PLATFORM = ''
+CONFIGURATION_DEBUG = 'Debug'
 CLEANBUILD = '-build'
 
 CWD = os.path.dirname(os.path.realpath(__file__))
@@ -41,65 +41,49 @@ def checkPath(path, exist):
 		else:
 			return
 
-def CompileHost():
-	printheader("##########################################################")
-	printheader("### Looking for PapyrusRT ")
-	printheader("### " + os.path.join('/home', getpass.getuser(), PAPYRUSRT))
-	printheader("##########################################################")
-	checkPath(os.path.join('/home', getpass.getuser(), PAPYRUSRT), True)
-
-	printheader("##########################################################")
-	printheader("### Looking for CDT Project ")
-	printheader("### " + os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,SA_FOLDER, CDT_PROJECT))
-	printheader("##########################################################")
-	checkPath(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,
-		SA_FOLDER, CDT_PROJECT), True)
-
-	printheader("##########################################################")
-	printheader("### Compiling CDT Project ")
-	printheader("##########################################################")
-	subprocess.call([os.path.join('/home', getpass.getuser(), PAPYRUSRT),
-		'--launcher.suppressErrors', '-nosplash', '-application',
-		'org.eclipse.cdt.managedbuilder.core.headlessbuild',
-		'-import',
-		os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,
-			SA_FOLDER, CDT_PROJECT),
-		CLEANBUILD,
-		CDT_PROJECT + '/' + CONFIGURATION]);
-
-def CompileTarget():
-	printheader("##########################################################")
-	printheader("### There is not CDT Project for Target Compile ")
-	printheader("##########################################################")
-
-	printheader("##########################################################")
-	printheader("### Looking for Build Script ")
-	printheader("### " + os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, BUILD_SCRIPT))
-	printheader("##########################################################")
-	checkPath(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, BUILD_SCRIPT), True)
-	os.chdir(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER))
-
-	if CONFIGURATION == 'Debug':
-		subprocess.call(['./'+ BUILD_SCRIPT, 'sad', '-d', BUILD_TARGET]);
-	else:
-		subprocess.call(['./'+ BUILD_SCRIPT, 'sad', '-r', BUILD_TARGET]);
-
-if len(sys.argv) < 3:
-	message = __file__ + " <Debug or Release> <host or target> [clean]"
+if len(sys.argv) < 2:
+	message = __file__ + " <Configuration Name> [clean]"
 	printfail(message)
 	sys.exit()
-if len(sys.argv) > 3:
-	if sys.argv[3] == 'clean':
+if len(sys.argv) > 2:
+	if sys.argv[2] == 'clean':
 		CLEANBUILD = '-cleanBuild'
 	else:
-		message = __file__ + " <Debug or Release> <host or target> [clean]"
+		message = __file__ + " <Configuration Name> [clean]"
 		printfail(message)
 		sys.exit()
 
 CONFIGURATION = sys.argv[1]
-PLATFORM = sys.argv[2]
 
-if PLATFORM == 'target':
-	CompileTarget()
-else:
-	CompileHost()
+printheader("##########################################################")
+printheader("### Looking for PapyrusRT ")
+printheader("### " + os.path.join('/home', getpass.getuser(), PAPYRUSRT))
+printheader("##########################################################")
+checkPath(os.path.join('/home', getpass.getuser(), PAPYRUSRT), True)
+
+DEPENDECY_LIBRARY = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,SA_FOLDER, 'external/armv7-a/lib/libsvchttp.a')
+if CONFIGURATION != CONFIGURATION_DEBUG:
+	printheader("##########################################################")
+	printheader("### Looking for dependecy library ")
+	printheader("### " + DEPENDECY_LIBRARY)
+	printheader("##########################################################")
+	checkPath(DEPENDECY_LIBRARY, True)
+
+SOURCE_CODE_GENERATED = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA, SA_FOLDER, CDT_PROJECT, 'src')
+printheader("##########################################################")
+printheader("### Looking for source code generated ")
+printheader("### " + SOURCE_CODE_GENERATED)
+printheader("##########################################################")
+checkPath(SOURCE_CODE_GENERATED, True)
+
+printheader("##########################################################")
+printheader("### Compiling CDT Project ")
+printheader("##########################################################")
+subprocess.call([os.path.join('/home', getpass.getuser(), PAPYRUSRT),
+	'--launcher.suppressErrors', '-nosplash', '-application',
+	'org.eclipse.cdt.managedbuilder.core.headlessbuild',
+	'-import',
+	os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,
+		SA_FOLDER, CDT_PROJECT),
+	CLEANBUILD,
+	CDT_PROJECT + '/' + CONFIGURATION]);

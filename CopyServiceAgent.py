@@ -38,37 +38,31 @@ def checkPath(path, exist):
 		else:
 			return
 
-if len(sys.argv) < 3:
-	message = __file__ + " <Debug or Release> <host or target>"
+if len(sys.argv) < 2:
+	message = __file__ + " <Configuration Name>"
 	printfail(message)
 	sys.exit()
 
 CONFIGURATION = sys.argv[1]
-PLATFORM = sys.argv[2]
 
-def CopyHost():
-	binaryfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,
-		SA_FOLDER, CDT_PROJECT, CONFIGURATION, BINARY_NAME)
-	printheader("##########################################################")
-	printheader("### Looking for the binary file : ")
-	printheader("### " + binaryfile)
-	printheader("##########################################################")
-	checkPath(binaryfile, True)
+binaryfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,
+	SA_FOLDER, CDT_PROJECT, CONFIGURATION, BINARY_NAME)
+printheader("##########################################################")
+printheader("### Looking for the binary file : ")
+printheader("### " + binaryfile)
+printheader("##########################################################")
+checkPath(binaryfile, True)
 
+targetfile = ''
+
+if CONFIGURATION == 'Debug':
 	targetfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'x86_64', 'bin/sa-service')
-	printheader("##########################################################")
-	printheader("### Copying the binary file to ")
-	printheader("### " + targetfile)
-	printheader("##########################################################")
-	checkPath(targetfile, True)
-	shutil.copyfile(binaryfile, targetfile)
-
-def CopyTarget():
-	printheader("##########################################################")
-	printheader("### There is no action for copying the target binary file")
-	printheader("##########################################################")
-
-if PLATFORM == 'target':
-	CopyTarget()
 else:
-	CopyHost()
+	targetfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv7-a', 'bin/sa-service')
+
+printheader("##########################################################")
+printheader("### Copying the binary file to ")
+printheader("### " + targetfile)
+printheader("##########################################################")
+checkPath(targetfile, True)
+shutil.copyfile(binaryfile, targetfile)
