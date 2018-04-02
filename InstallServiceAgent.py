@@ -24,6 +24,8 @@ SED_SCRIPT = 'replace_workingfolder.sh'
 RUN_SCRIPT_SAD = 'run_sad.sh'
 RUN_SCRIPT_SAUI = 'run_sauid.sh'
 SA_SERVICE = 'obigo-sa'
+SA_PROCESS_NAME = 'sa-service'
+SAUI_PROCESS_NAME = 'saui-service'
 
 UICCID_FILE = 'uiccid.txt'
 
@@ -82,6 +84,10 @@ printheader("##########################################################")
 child = pexpect.spawn('ssh root@%s systemctl -a | grep obigo; systemctl stop %s'%(TARGET_ADDRESS, SA_SERVICE))
 setpassword()
 child = pexpect.spawn('ssh root@%s systemctl -a | grep obigo'%(TARGET_ADDRESS))
+setpassword()
+child = pexpect.spawn('ssh root@%s pkill %s'%(TARGET_ADDRESS, SA_PROCESS_NAME))
+setpassword()
+child = pexpect.spawn('ssh root@%s pkill %s'%(TARGET_ADDRESS, SAUI_PROCESS_NAME))
 setpassword()
 
 printheader("##########################################################")
