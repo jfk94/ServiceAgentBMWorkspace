@@ -8,13 +8,13 @@ import getpass
 from pylib.print_color import *
 
 PAPYRUSRT = "obigo-sdk/Papyrus-RT/papyrusrt"
-SA_FOLDER = "SA"
+SA_FOLDER = "sa"
 CDT_PROJECT = "ServiceAgent_CDTProject"
 BINARY_NAME = "ServiceAgent_CDTProject"
 
 INSTALL_FOLDER = "ServiceAgentBM"
-CLONE_FOLDER = "serviceagent-bm"
-CLONE_FOLDER_SA = "serviceagent"
+CLONE_FOLDER = "sa-bm"
+CLONE_FOLDER_SA = "src"
 
 BUILD_FOLDER = "build"
 BUILD_SCRIPT = "sa_build.sh"
