@@ -49,8 +49,9 @@ PLATFORM = sys.argv[2]
 printheader("##########################################################")
 printheader("### ServiceAgentBM Folder ")
 printheader("##########################################################")
-checkPath(os.path.join(CWD, INSTALL_FOLDER), False)
-os.makedirs(os.path.join(CWD, INSTALL_FOLDER))
+if os.path.exists(os.path.join(CWD, INSTALL_FOLDER)) == False:
+	os.makedirs(os.path.join(CWD, INSTALL_FOLDER))
+checkPath(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER), False)
 
 printheader("##########################################################")
 printheader("### Initializing Repository")
