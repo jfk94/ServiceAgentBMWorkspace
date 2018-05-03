@@ -1,4 +1,9 @@
 .*\[E\]
 .*\[E\].*AIIF
 .*\[D\].*IPCProxy
+.*\[[DEFI]\].*IPCProxy
+.*\[[DEFI]\].*AFIF
+(.*\[[DEFI]\].*IPCProxy)|(.*\[[DEFI]\].*DBusServer)
 IPCProxy<|AFIF<|AVNServerInfo|DBusServer<|DBusClient<
+*\[D\].*AVNServerInfo: CreateProxy:  Object Path Name : /com/ssangyong/AutomotiveProxy/VrManager UpdateInfo ID : \d{2} Success to create a proxy
+*\[D\].*IPCProxy: UpdateInfo => {"Cmd":2,"Data":{"Action":"VrStartEvent"
