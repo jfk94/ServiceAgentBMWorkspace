@@ -6,7 +6,7 @@ import subprocess
 from pylib.print_color import *
 
 INSTALL_FOLDER = "ServiceAgentBM"
-CLONE_FOLDER = "serviceagent-bm"
+CLONE_FOLDER = "sa-bm"
 CLONE_FOLDER_SA = "serviceagent"
 
 BUILD_FOLDER = "build"
