@@ -61,7 +61,7 @@ printheader("### " + os.path.join('/home', getpass.getuser(), PAPYRUSRT))
 printheader("##########################################################")
 checkPath(os.path.join('/home', getpass.getuser(), PAPYRUSRT), True)
 
-DEPENDECY_LIBRARY = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA,SA_FOLDER, 'external/armv7-a/lib/libsvchttp.a')
+DEPENDECY_LIBRARY = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, 'lib/external/armv7-a/lib/libsvchttp.a')
 if CONFIGURATION != CONFIGURATION_DEBUG:
 	printheader("##########################################################")
 	printheader("### Looking for dependecy library ")
