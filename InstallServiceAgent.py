@@ -8,8 +8,8 @@ import pexpect
 from pylib.print_color import *
 
 INSTALL_FOLDER = "ServiceAgentBM"
-CLONE_FOLDER = "serviceagent-bm"
-CLONE_FOLDER_SA = "serviceagent"
+CLONE_FOLDER = "sa-bm"
+CLONE_FOLDER_SA = "src"
 
 BUILD_FOLDER = "build"
 PACKAGE_FOLDER = "package"
