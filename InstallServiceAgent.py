@@ -23,6 +23,7 @@ TARGET_PASSWORD = 'root'
 SED_SCRIPT = 'replace_workingfolder.sh'
 RUN_SCRIPT_SAD = 'run_sad.sh'
 RUN_SCRIPT_SAUI = 'run_sauid.sh'
+RUN_SCRIPT_CICAGENT = 'run_cicagent.sh'
 SA_SERVICE = 'obigo-sa'
 SA_PROCESS_NAME = 'sa-service'
 SAUI_PROCESS_NAME = 'saui-service'
@@ -135,6 +136,21 @@ child = pexpect.spawn("ssh root@%s %s %s"
 	%(TARGET_ADDRESS,
 	os.path.join(TARGET_FOLDER, SED_SCRIPT),
 	os.path.join(TARGET_FOLDER, RUN_SCRIPT_SAUI)))
+setpassword()
+
+printheader("##########################################################")
+printheader("### Changing working folder path of " + RUN_SCRIPT_CICAGENT)
+printheader("##########################################################")
+checkPath(os.path.join(CWD, SED_SCRIPT), True)
+child = pexpect.spawn('scp -r %s root@%s:%s'
+	%(os.path.join(CWD, SED_SCRIPT),
+	TARGET_ADDRESS,
+	TARGET_FOLDER))
+setpassword()
+child = pexpect.spawn("ssh root@%s %s %s"
+	%(TARGET_ADDRESS,
+	os.path.join(TARGET_FOLDER, SED_SCRIPT),
+	os.path.join(TARGET_FOLDER, RUN_SCRIPT_CICAGENT)))
 setpassword()
 
 printheader("##########################################################")
