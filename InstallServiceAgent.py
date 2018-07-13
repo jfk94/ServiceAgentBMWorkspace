@@ -72,7 +72,7 @@ if len(sys.argv) < 3:
 TARGET_ADDRESS = sys.argv[1]
 TARGET_FOLDER = sys.argv[2]
 
-targetfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv7-a', 'bin/sa-service')
+targetfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv8-a', 'bin/sa-service')
 printheader("##########################################################")
 printheader("### Looking for the target file : ")
 printheader("### " + targetfile)
@@ -103,7 +103,7 @@ printheader("### Installing binary files to Target")
 printheader("### " + TARGET_ADDRESS + ':' + TARGET_FOLDER)
 printheader("##########################################################")
 child = pexpect.spawn('scp -r %s root@%s:%s'
-	%(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv7-a'),
+	%(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv8-a'),
 	TARGET_ADDRESS,
 	TARGET_FOLDER))
 setpassword()

@@ -58,7 +58,7 @@ targetfile = ''
 if CONFIGURATION == 'Debug':
 	targetfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'x86_64', 'bin/sa-service')
 else:
-	targetfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv7-a', 'bin/sa-service')
+	targetfile = os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv8-a', 'bin/sa-service')
 
 printheader("##########################################################")
 printheader("### Copying the binary file to ")
