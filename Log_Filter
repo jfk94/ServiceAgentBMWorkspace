@@ -8,3 +8,4 @@
 IPCProxy<|AFIF<|AVNServerInfo|DBusServer<|DBusClient<
 .*\[D\].*AVNServerInfo: CreateProxy:  Object Path Name : /com/ssangyong/AutomotiveProxy/VrManager UpdateInfo ID : \d{2} Success to create a proxy
 .*\[D\].*IPCProxy: UpdateInfo => {"Cmd":2,"Data":{"Action":"VrStartEvent"
+(parserHeader: \[AI\]\[AiParser\])|(parserNamespace: \[AI\]\[AiParser\])|(dataTo\(afif,API_SEND_DIRECTIVE\) from aiif)
