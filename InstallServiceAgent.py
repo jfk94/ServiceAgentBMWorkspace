@@ -84,11 +84,19 @@ printheader("### Stopping SA Service : " + SA_SERVICE)
 printheader("##########################################################")
 child = pexpect.spawn('ssh root@%s systemctl -a | grep obigo; systemctl stop %s'%(TARGET_ADDRESS, SA_SERVICE))
 setpassword()
+child = pexpect.spawn('ssh root@%s systemctl -a | grep obigo; systemctl stop %s'%(TARGET_ADDRESS, 'obigo-saui'))
+setpassword()
+child = pexpect.spawn('ssh root@%s systemctl -a | grep obigo; systemctl stop %s'%(TARGET_ADDRESS, 'cicagent'))
+setpassword()
+child = pexpect.spawn('ssh root@%s systemctl -a | grep obigo; systemctl stop %s'%(TARGET_ADDRESS, 'obigo-af'))
+setpassword()
 child = pexpect.spawn('ssh root@%s systemctl -a | grep obigo'%(TARGET_ADDRESS))
 setpassword()
 child = pexpect.spawn('ssh root@%s pkill %s'%(TARGET_ADDRESS, SA_PROCESS_NAME))
 setpassword()
 child = pexpect.spawn('ssh root@%s pkill %s'%(TARGET_ADDRESS, SAUI_PROCESS_NAME))
+setpassword()
+child = pexpect.spawn('ssh root@%s pkill %s'%(TARGET_ADDRESS, 'cicagent'))
 setpassword()
 
 printheader("##########################################################")
@@ -104,6 +112,13 @@ printheader("### " + TARGET_ADDRESS + ':' + TARGET_FOLDER)
 printheader("##########################################################")
 child = pexpect.spawn('scp -r %s root@%s:%s'
 	%(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, BUILD_FOLDER, PACKAGE_FOLDER, 'armv8-a'),
+	TARGET_ADDRESS,
+	TARGET_FOLDER))
+setpassword()
+
+checkPath(os.path.join(CWD, 'seja.sh'), True)
+child = pexpect.spawn('scp -r %s root@%s:%s'
+	%(os.path.join(CWD, 'seja.sh'),
 	TARGET_ADDRESS,
 	TARGET_FOLDER))
 setpassword()
