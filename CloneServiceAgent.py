@@ -8,13 +8,13 @@ import shutil
 from pylib.print_color import *
 
 INSTALL_FOLDER = "ServiceAgentBM"
-CLONE_FOLDER = "serviceagent-bm"
-CLONE_FOLDER_SA = "serviceagent"
+CLONE_FOLDER = "sa-bm"
+CLONE_FOLDER_SA = "src/sa"
 BUILD_FOLDER = "build"
 PACKAGE_FOLDER = "package"
 BUILD_SCRIPT = "sa_build.sh"
 HOST_OPTION = "-bh"
-TARGET_OPTION = "-bt"
+TARGET_OPTION = "-bta8"
 BRANCH = ''
 PLATFORM = ''
 
@@ -49,14 +49,13 @@ PLATFORM = sys.argv[2]
 printheader("##########################################################")
 printheader("### ServiceAgentBM Folder ")
 printheader("##########################################################")
-checkPath(os.path.join(CWD, INSTALL_FOLDER), False)
-os.makedirs(os.path.join(CWD, INSTALL_FOLDER))
+checkPath(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER), False)
 
 printheader("##########################################################")
 printheader("### Initializing Repository")
 printheader("##########################################################")
 os.chdir(os.path.join(CWD, INSTALL_FOLDER))
-os.popen("repo init -u git@github.com:OBIGOGIT/ServiceAgentBM-Build.git -b develop")
+os.popen("repo init -u git@github.com:OBIGOGIT/sa-bm.git -b develop")
 os.popen("repo sync | repo forall -c git checkout develop")
 checkPath(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA), True)
 os.chdir(os.path.join(CWD, INSTALL_FOLDER, CLONE_FOLDER, CLONE_FOLDER_SA))

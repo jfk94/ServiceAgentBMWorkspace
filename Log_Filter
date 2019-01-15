@@ -9,3 +9,24 @@ IPCProxy<|AFIF<|AVNServerInfo|DBusServer<|DBusClient<
 .*\[D\].*AVNServerInfo: CreateProxy:  Object Path Name : /com/ssangyong/AutomotiveProxy/VrManager UpdateInfo ID : \d{2} Success to create a proxy
 .*\[D\].*IPCProxy: UpdateInfo => {"Cmd":2,"Data":{"Action":"VrStartEvent"
 (parserHeader: \[AI\]\[AiParser\])|(parserNamespace: \[AI\]\[AiParser\])|(dataTo\(afif,API_SEND_DIRECTIVE\) from aiif)
+(recvEventPTT: Action:VrEndEvent)|(recvEventPTT: Action:VrStartEvent)
+
+(.*\[D\].*IPCProxy: UpdateInfo)|(dataTo\(afif,API_NOTI_SPEECH_START\))
+
+(parserHeader: \[AI\]\[AiParser\])|(parserNamespace: \[AI\]\[AiParser\])|(SA_API_REQ_TTS_SYNTHESIZER)
+(parserHeader: \[AI\]\[AiParser\])|(DBusServer<WAITING_BUS>on_handle_send_messages:)|(NAVIF<RUNNING_NAVI__boundary>: API :)
+
+(parserHeader: \[AI\]\[AiParser\])|(parserNamespace: \[AI\]\[AiParser\])|(.*\[[DEFI]\].*AFIF)
+
+(parserHeader: \[AI\]\[AiParser\])|(send Request to AVN \()
+(parserHeader: \[AI\]\[AiParser\])|(send Request to AVN \()|(.*\[D\].*IPCProxy: UpdateInfo)
+
+(.*\[[DEFI]\].*AFIF)|(noServicePopup.qml)
+
+AI Agent Daemon MethodID
+
+(parserHeader: \[AI\]\[AiParser\])|(\[AI\]\[aiifCap\]\[Performance\]\[Directive Send\])|(SA_API_SEND_EVENT)
+(parserHeader: \[AI\]\[AiParser\])|(\[AI\]\[aiifCap\]\[Performance\]\[Directive Send\])|(SA_API_SEND_EVENT)|(send Request to AVN \()|(.*\[D\].*IPCProxy: UpdateInfo)
+
+Play TTS
+(.*\[E\])|(DBusWatch)
